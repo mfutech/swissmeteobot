@@ -30,7 +30,7 @@ def meteo(bot, update):
     msg = update.message
     tkn = msg.text.split()
     if len(tkn) > 1:
-        ville = tkn[1]
+        ville = tkn[1].lower()
         try:
             day = min(int(tkn[2]), 5)
         except (ValueError, TypeError, IndexError):
@@ -48,6 +48,24 @@ def meteo(bot, update):
     else:
         bot.send_message(chat_id=msg.chat_id, text='ville inconnue')
 
+def usage(bot, update):
+    """ help (callback function)
+    """
+    usage = """
+    Comment utiliser le Bot:
+    
+    /villes
+    donne la liste de villes pour lesquelles peut vous donner la météo
+
+    /meteo <ville>
+    donne la météo dans <ville> pour la journée
+
+    /meteo <ville> <jour>
+    donne la météo dans <ville> pour dans <jour> jours,
+    exemple : /meteo lausanne 1
+
+    """
+    bot.send_message(chat_id=update.message.chat_id, text=usage)
 
 def cities(bot, update):
     """ cities (callback function)
@@ -69,13 +87,17 @@ def __main__():
     dispatcher.add_handler(start_handler)
 
     ## register the meteo command
-    meteo_handler = CommandHandler('meteo', meteo)
-    dispatcher.add_handler(meteo_handler)
+    dispatcher.add_handler(CommandHandler('meteo', meteo))
+    dispatcher.add_handler(CommandHandler('météo', meteo))
 
     ## register the villes / cities command
     dispatcher.add_handler(CommandHandler('villes', cities))
     dispatcher.add_handler(CommandHandler('cities', cities))
 
+    ## register the help / aide command
+    dispatcher.add_handler(CommandHandler('usage', usage))
+    dispatcher.add_handler(CommandHandler('aide', usage))
+    dispatcher.add_handler(CommandHandler('help', usage))
 
     # now we are in
     updater.start_polling()
