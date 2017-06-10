@@ -2,6 +2,8 @@
 
 import logging
 import yaml
+from urllib.request import urlopen
+from io import BytesIO
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 
@@ -24,21 +26,25 @@ def start(bot, update):
 def meteo(bot, update):
     """ meteo (callback function    )
     """
-    n = 0
+    day = 0
     msg = update.message
     tkn = msg.text.split()
     if len(tkn) > 1:
         ville = tkn[1]
         try:
-            n = min( int( tkn[2] ), 5 )
+            day = min(int(tkn[2]), 5)
         except (ValueError, TypeError, IndexError):
-            n = 0
+            day = 0
     else:
         bot.send_message(chat_id=msg.chat_id, text='merci de donner un nom de ville connu')
         return()
     if ville in CONF['villes']:
-        bot.send_photo(chat_id=msg.chat_id,
-                         photo=f"http://www.prevision-meteo.ch/uploads/widget/{ville}_{n}.png")
+        url = f"http://www.prevision-meteo.ch/uploads/widget/{ville}_{day}.png"
+        ## bot.send_photo(chat_id=msg.chat_id, photo=url)
+        img_meteo = BytesIO(urlopen(url).read())
+        img_meteo.name = 'img_meteo.jpeg'
+        img_meteo.seek(0)
+        bot.send_photo(chat_id=msg.chat_id, photo=img_meteo)
     else:
         bot.send_message(chat_id=msg.chat_id, text='ville inconnue')
 
@@ -54,7 +60,6 @@ def cities(bot, update):
 
 
 def __main__():
-    
 
     updater = Updater(token=CONF['token'])
     dispatcher = updater.dispatcher
