@@ -18,17 +18,14 @@ def start(bot, update):
             update, update message
     Return: -
     """
-    print(update)
     bot.send_message(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
     ##bot.send_message(chat_id=update.message.chat_id, text=update.message.first_name)
 
 def meteo(bot, update):
     """ meteo (callback function    )
     """
-    print("meteo called", update)
     msg = update.message
     tkn = msg.text.split()
-    print(tkn)
     if len(tkn) > 1:
         ville = tkn[1]
         print(ville)
