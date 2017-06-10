@@ -24,17 +24,21 @@ def start(bot, update):
 def meteo(bot, update):
     """ meteo (callback function    )
     """
+    n = 0
     msg = update.message
     tkn = msg.text.split()
     if len(tkn) > 1:
         ville = tkn[1]
-        print(ville)
+        try:
+            n = min( int( tkn[2] ), 5 )
+        except (ValueError, TypeError, IndexError):
+            n = 0
     else:
-        bot.send_message(chat_id=msg.chat_id, text='merci de donner la ville considérée')
+        bot.send_message(chat_id=msg.chat_id, text='merci de donner un nom de ville connu')
         return()
     if ville in CONF['villes']:
-        bot.send_message(chat_id=msg.chat_id,
-                         text=f"http://www.prevision-meteo.ch/uploads/widget/{ville}_0.png")
+        bot.send_photo(chat_id=msg.chat_id,
+                         photo=f"http://www.prevision-meteo.ch/uploads/widget/{ville}_{n}.png")
     else:
         bot.send_message(chat_id=msg.chat_id, text='ville inconnue')
 
