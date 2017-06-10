@@ -1,2 +1,11 @@
 
 token: XXXXXXX:NNNNNNN-NNNNNNNNNNNNNN
+villes: 
+  - renens
+  - lausanne
+  - geneve
+  - gland
+  - nyon
+  - yverdon-les-bains
+  - fribourg-fr
+  - zurich
