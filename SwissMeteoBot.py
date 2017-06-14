@@ -73,11 +73,11 @@ def start(bot, update):
             update, update message
     Return: -
     """
-    bot.send_message(chat_id=update.message.chat_id, 
-                     text="""Bonjour, 
+    bot.send_message(chat_id=update.message.chat_id, parse_mode='HTML',
+                     text="""Bonjour,
 Je suis un robot, connaissant bien la météo, pour une savoir 
 plus faites : <b>/usage</b>
-"""
+""")
     ##bot.send_message(chat_id=update.message.chat_id, text=update.message.first_name)
 
 def meteo(bot, update):
