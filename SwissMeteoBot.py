@@ -82,6 +82,11 @@ plus faites : <b>/usage</b>
 
 def meteo(bot, update):
     """ meteo (callback function    )
+
+    get triggered by /meteo messages
+
+    tokenize message, extract city name, get the meteo and replies with the 
+    corresponding image
     """
     day = 0
     msg = update.message
@@ -107,6 +112,9 @@ def meteo(bot, update):
 
 def usage(bot, update):
     """ help (callback function)
+
+    callback to the /usage message
+    replies with an usage message.
     """
     usage = """
     Comment utiliser le Bot:
@@ -126,6 +134,10 @@ def usage(bot, update):
 
 def cities(bot, update):
     """ cities (callback function)
+
+    answer to /cities command
+
+    replies with list of cities known in the configuration file.
     """
     txt = "Les villes connues à ce jour par le bot:\n"
     for ville in CONF['villes']:

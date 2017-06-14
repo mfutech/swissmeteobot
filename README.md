@@ -21,7 +21,7 @@ There are also files required to build a docker image.
    ```
 
 
-## source of the meteo informaton
+## source of the meteo information
 
 Meteo is coming from http://www.prevision-meteo.ch.
 They authorize the inclusing of their images to other website. The bot is doing the same, downloading the required image and sending to the user requesting it.
