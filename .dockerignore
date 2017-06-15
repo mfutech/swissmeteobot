@@ -1,1 +1,9 @@
+.gitignore
+.git
+.vscode
+.doit.*
+.dockerignore
+config.example.yml
+*.md
 *.tgz
+__pycache__

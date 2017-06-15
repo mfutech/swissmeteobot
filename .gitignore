@@ -1,3 +1,5 @@
 config.yml
 .vcode
 *.tgz
+.doit.*
+__pycache__
